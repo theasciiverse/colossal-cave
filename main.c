@@ -12,6 +12,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#ifdef _WIN32
+#include <direct.h>
+#endif
 
 #include "advent.h"
 
@@ -1529,6 +1532,21 @@ int main(int argc, char *argv[]) {
 			break;
 		}
 	}
+
+#ifdef _WIN32
+	/* Asciiverse: on Windows, play in %APPDATA%\colossal-cave so saved
+	 * games are kept out of the install folder (av replaces that on
+	 * updates). On Linux and macOS the start script does this. Skipped
+	 * when script files are given, so their relative paths still work. */
+	if (optind == argc && getenv("APPDATA") != NULL) {
+		char dir[1024];
+		snprintf(dir, sizeof dir, "%s\\colossal-cave", getenv("APPDATA"));
+		_mkdir(dir);
+		if (_chdir(dir) != 0) {
+			perror(dir);
+		}
+	}
+#endif
 
 	/* copy invocation line part after switches */
 	settings.argc = argc - optind;
