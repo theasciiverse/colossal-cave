@@ -1,0 +1,11 @@
+#!/bin/sh
+# Starts Colossal Cave Adventure from an av install: runs lib/advent, next
+# to this script, from ~/.local/share/colossal-cave, so saved games (the
+# game asks for a file name and writes it to the current folder) stay out
+# of the install folder, which av replaces on updates.
+# av links ~/.local/bin/colossal-cave to this file, so follow that link first.
+self=$(readlink "$0" 2>/dev/null || printf '%s' "$0")
+dir=$(cd "$(dirname "$self")" && pwd)
+saves="${XDG_DATA_HOME:-$HOME/.local/share}/colossal-cave"
+mkdir -p "$saves" && cd "$saves" || exit 1
+exec "$dir/lib/advent" "$@"

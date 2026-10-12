@@ -15,3 +15,8 @@ MANIFEST
 cheat
 advent.info
 coverage/*
+# Asciiverse packaging
+advent.exe
+stage/
+dist/
+.venv-build/

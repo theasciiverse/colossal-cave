@@ -1,0 +1,61 @@
+# System packages (.deb, .rpm, .apk, Arch) for Colossal Cave Adventure
+# (Open Adventure), built by nfpm from the same static binary as the av
+# archive. The release workflow sets VERSION, RELEASE (our packaging
+# release) and ARCH (amd64 or arm64).
+#
+# No .desktop file on purpose (upstream ships advent.desktop; it is left
+# out): av is the one place titles are started from, so Asciiverse packages
+# never add menu entries (asciiverse/CLAUDE.md).
+#
+# Named colossal-cave-asciiverse so it never collides with a distribution's
+# open-adventure package; it installs the same advent command and conflicts
+# with it. colossal-cave is a second name for it, matching the catalog id.
+name: colossal-cave-asciiverse
+arch: ${ARCH}
+platform: linux
+version: ${VERSION}
+release: ${RELEASE}
+section: games
+priority: optional
+maintainer: Asciiverse <packages@asciiverse.sh>
+vendor: Asciiverse
+homepage: https://github.com/theasciiverse/colossal-cave
+license: BSD-2-Clause
+conflicts: [open-adventure]
+provides: [open-adventure]
+description: |
+  Colossal Cave Adventure, the original text adventure, in the terminal.
+  Version 2.5 (1995) by Will Crowther and Don Woods, the last by its own
+  authors, as forward-ported by Eric S. Raymond (Open Adventure). A static
+  build packaged by Asciiverse.
+contents:
+  - src: advent
+    dst: /usr/bin/advent
+    file_info: { mode: 0755 }
+  - src: /usr/bin/advent
+    dst: /usr/bin/colossal-cave
+    type: symlink
+  - src: COPYING
+    dst: /usr/share/doc/colossal-cave-asciiverse/copyright
+    file_info: { mode: 0644 }
+  - src: README.adoc
+    dst: /usr/share/doc/colossal-cave-asciiverse/README.adoc
+    file_info: { mode: 0644 }
+  - src: advent.adoc
+    dst: /usr/share/doc/colossal-cave-asciiverse/advent.adoc
+    file_info: { mode: 0644 }
+  - src: hints.adoc
+    dst: /usr/share/doc/colossal-cave-asciiverse/hints.adoc
+    file_info: { mode: 0644 }
+  - src: history.adoc
+    dst: /usr/share/doc/colossal-cave-asciiverse/history.adoc
+    file_info: { mode: 0644 }
+  - src: PATCHES.md
+    dst: /usr/share/doc/colossal-cave-asciiverse/PATCHES.md
+    file_info: { mode: 0644 }
+  - src: asciiverse/licenses/libedit.txt
+    dst: /usr/share/doc/colossal-cave-asciiverse/licenses/libedit.txt
+    file_info: { mode: 0644 }
+  - src: asciiverse/licenses/ncurses.txt
+    dst: /usr/share/doc/colossal-cave-asciiverse/licenses/ncurses.txt
+    file_info: { mode: 0644 }
