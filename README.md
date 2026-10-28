@@ -11,9 +11,6 @@ av install colossal-cave
 av play colossal-cave
 ```
 
-Or download the archive for your system from this repository's Releases,
-unpack it and run `./colossal-cave` (`colossal-cave.exe` on Windows).
-
 ## Credits
 
 Will Crowther wrote Adventure in 1976 and Don Woods expanded it in 1977.
